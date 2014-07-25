@@ -3,5 +3,8 @@ pass a handler to upload them, or save to disk, or what have you.
 
 Provides the facility to decrypt, decompress, and rejoin those chunks back into the original file.
 
+25-07-14:
+    v.12: Added ChunkIterator to define how chunks are found and presented to the Joiner.
+
 25-07-14
     v0.1: split->compress and decompress->join implemented. hooks provded for encryption interfaces.

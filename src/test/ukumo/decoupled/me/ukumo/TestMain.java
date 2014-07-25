@@ -11,8 +11,9 @@ import encode.ukumo.decoupled.me.ukumo.handlers.EncodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.SampleDecodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.SampleEncodedHandler;
 import encode.ukumo.decoupled.me.ukumo.hash.MD5Hasher;
-import encode.ukumo.decoupled.me.ukumo.packer.Joiner;
-import encode.ukumo.decoupled.me.ukumo.packer.Splitter;
+import encode.ukumo.decoupled.me.ukumo.packer.*;
+import encode.ukumo.decoupled.me.ukumo.iterators.ChunkIterator;
+import encode.ukumo.decoupled.me.ukumo.iterators.FileChunkIterator;
 
 import java.util.Scanner;
 
@@ -45,13 +46,17 @@ public class TestMain {
 
         EncryptionHandler crypt = new PassthroughEncryptionHandler();
 
+        String path = "";
+
+
         try {
             Splitter fsp = new Splitter(1000000);
             fsp.split(fname, chunkPrefix, encLZ, encHandle, crypt);
 
             Joiner joiner = new Joiner();
-            String path = "";
-            joiner.rebuild(path, chunkPrefix, decLZ, decHandle, crypt);
+
+            ChunkIterator defaultFileGrabber = new FileChunkIterator(path, chunkPrefix);
+            joiner.rebuild(defaultFileGrabber, decLZ, decHandle, crypt);
 
         } catch (EncodeException e) {
             e.printStackTrace();

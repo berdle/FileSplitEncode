@@ -5,6 +5,7 @@ import encode.ukumo.decoupled.me.ukumo.encryption.EncryptionHandler;
 import encode.ukumo.decoupled.me.ukumo.exceptions.DecodeException;
 import encode.ukumo.decoupled.me.ukumo.exceptions.DecompressionException;
 import encode.ukumo.decoupled.me.ukumo.handlers.DecodedHandler;
+import encode.ukumo.decoupled.me.ukumo.iterators.ChunkIterator;
 
 import java.io.*;
 
@@ -17,40 +18,25 @@ public class Joiner {
 
     public Joiner(){}
 
-    public void rebuild(String path, String chunkPrefix, LZMADecoder dec, DecodedHandler handler, EncryptionHandler decrypt) throws DecodeException {
+    public void rebuild(ChunkIterator iterator, LZMADecoder dec, DecodedHandler handler, EncryptionHandler crypt) throws DecodeException {
         // look for chunks starting with hash-chunkId.uko
 
-        if (handler == null || decrypt == null || dec == null) {
+        if (handler == null || crypt == null || dec == null) {
             throw new DecodeException();
         }
-
-        StringBuilder sb = new StringBuilder();
-        chunkPrefix = path + chunkPrefix;
-        sb.append(chunkPrefix);
-        sb.append("-0.uko");
-        int chunkId = 0;
-
-        File inFile = new File(sb.toString());
 
         try {
 
             DataInputStream dis;
-            File next = inFile;
-
+            ChunkParams params = new ChunkParams();
             do {
-                dis = new DataInputStream(new FileInputStream(next));
-                handler.onDecode(expandChunk(dis, dec, decrypt));
-                chunkId++;
+                dis = iterator.nextChunk(params);
 
-                StringBuilder ns = new StringBuilder();
-                ns.append(chunkPrefix);
-                ns.append("-");
-                ns.append(chunkId);
-                ns.append(".uko");
-                dis.close();
+                if (params.isValidChunk()) {
+                    handler.onDecode(expandChunk(dis, dec, crypt));
+                }
 
-                next = new File(ns.toString());
-            } while (next.exists());
+            } while (params.getChunkId() < params.getTotalChunks() - 1);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
