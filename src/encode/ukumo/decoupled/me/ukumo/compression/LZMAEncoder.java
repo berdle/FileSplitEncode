@@ -25,10 +25,10 @@ public class LZMAEncoder {
     private boolean endOfStreamMarker; //write eos marker?
 
 
-    public LZMAEncoder() {
+    public LZMAEncoder(int _dictionarySize) {
         encoder = new SevenZip.Compression.LZMA.Encoder();
         algorithm = 2;
-        dictionarySize = 1 << 23;
+        dictionarySize = _dictionarySize;
         fastBytes = 128;
         contextBits = 3;
         lPosBits = 0;

@@ -39,7 +39,8 @@ public class TestMain {
         MD5Hasher md5 = new MD5Hasher();
         String chunkPrefix = md5.hashToString(fname);
 
-        LZMAEncoder encLZ = new LZMAEncoder();
+        int dictionarySize = 1 << 21;
+        LZMAEncoder encLZ = new LZMAEncoder(dictionarySize);
         LZMADecoder decLZ = new LZMADecoder();
         DecodedHandler decHandle = new SampleDecodedHandler(fname + ".rebuilt");
         EncodedHandler encHandle = new SampleEncodedHandler();
