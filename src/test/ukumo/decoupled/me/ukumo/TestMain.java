@@ -2,8 +2,8 @@ package test.ukumo.decoupled.me.ukumo;
 
 import encode.ukumo.decoupled.me.ukumo.compression.LZMADecoder;
 import encode.ukumo.decoupled.me.ukumo.compression.LZMAEncoder;
+import encode.ukumo.decoupled.me.ukumo.encryption.AESEncryptionHandler;
 import encode.ukumo.decoupled.me.ukumo.encryption.EncryptionHandler;
-import encode.ukumo.decoupled.me.ukumo.encryption.PassthroughEncryptionHandler;
 import encode.ukumo.decoupled.me.ukumo.exceptions.DecodeException;
 import encode.ukumo.decoupled.me.ukumo.exceptions.EncodeException;
 import encode.ukumo.decoupled.me.ukumo.handlers.DecodedHandler;
@@ -37,7 +37,7 @@ public class TestMain {
         String fname = sc.nextLine();
         /* generate hashed stuff! */
         MD5Hasher md5 = new MD5Hasher();
-        String chunkPrefix = md5.hashToString(fname);
+        String chunkPrefix = md5.hashStringToString(fname);
 
         int dictionarySize = 1 << 21;
         LZMAEncoder encLZ = new LZMAEncoder(dictionarySize);
@@ -45,7 +45,10 @@ public class TestMain {
         DecodedHandler decHandle = new SampleDecodedHandler(fname + ".rebuilt");
         EncodedHandler encHandle = new SampleEncodedHandler();
 
-        EncryptionHandler crypt = new PassthroughEncryptionHandler();
+        //EncryptionHandler crypt = new PassthroughEncryptionHandler();
+
+        EncryptionHandler crypt = new AESEncryptionHandler();
+
 
         String path = "";
 

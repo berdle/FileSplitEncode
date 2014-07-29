@@ -1,6 +1,8 @@
 package encode.ukumo.decoupled.me.ukumo.handlers;
 
 import encode.ukumo.decoupled.me.ukumo.exceptions.EncodeException;
+import encode.ukumo.decoupled.me.ukumo.hash.HashInterface;
+import encode.ukumo.decoupled.me.ukumo.hash.MD5Hasher;
 import encode.ukumo.decoupled.me.ukumo.packer.FileData;
 
 import java.io.FileNotFoundException;
@@ -23,6 +25,9 @@ public class SampleEncodedHandler implements EncodedHandler {
         sb.append(chunkId);
         sb.append(".uko");
         String filename = sb.toString();
+
+        ///
+        //HashInterface test = new MD5Hasher();
 
         try {
             FileOutputStream nFile = new FileOutputStream(filename);

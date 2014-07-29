@@ -86,7 +86,7 @@ public class Splitter {
 
             if (!closed) {
                 byte[] enc = encoder.compress(fBuff.toByteArray());
-                handler.onEncode(info, chunkId, enc.clone());
+                handler.onEncode(info, chunkId, encrypt.encrypt(enc.clone()));
                 fBuff.reset();
             }
 
