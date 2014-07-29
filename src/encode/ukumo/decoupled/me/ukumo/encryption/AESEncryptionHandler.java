@@ -18,10 +18,9 @@ public class AESEncryptionHandler implements EncryptionHandler {
     private BlockCipher engine;
     private KeyParameter kParam;
 
-    public AESEncryptionHandler() {
+    public AESEncryptionHandler(String key) {
         engine = new AESEngine();
 
-        String key = new String ("A sample key!");
         HashInterface shi = new MD5Hasher();
 
         byte[] kp = shi.hashStringToBytes(key);

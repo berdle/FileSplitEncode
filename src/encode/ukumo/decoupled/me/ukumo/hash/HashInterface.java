@@ -13,5 +13,4 @@ public interface HashInterface {
     public byte[] hashFile(File input);
     public byte[] hashByteArrayToBytes(byte[] source);
     public String hashByteArrayToString(byte[] source);
-
 }

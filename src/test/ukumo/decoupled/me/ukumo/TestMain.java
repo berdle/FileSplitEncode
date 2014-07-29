@@ -47,7 +47,7 @@ public class TestMain {
 
         //EncryptionHandler crypt = new PassthroughEncryptionHandler();
 
-        EncryptionHandler crypt = new AESEncryptionHandler();
+        EncryptionHandler crypt = new AESEncryptionHandler("a sample key");
 
 
         String path = "";
