@@ -10,7 +10,8 @@ import encode.ukumo.decoupled.me.ukumo.handlers.DecodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.EncodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.SampleDecodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.SampleEncodedHandler;
-import encode.ukumo.decoupled.me.ukumo.hash.MD5Hasher;
+import encode.ukumo.decoupled.me.ukumo.hash.HashInterface;
+import encode.ukumo.decoupled.me.ukumo.hash.SHA256Hash;
 import encode.ukumo.decoupled.me.ukumo.packer.*;
 import encode.ukumo.decoupled.me.ukumo.iterators.ChunkIterator;
 import encode.ukumo.decoupled.me.ukumo.iterators.FileChunkIterator;
@@ -36,8 +37,10 @@ public class TestMain {
         Scanner sc = new Scanner(System.in);
         String fname = sc.nextLine();
         /* generate hashed stuff! */
-        MD5Hasher md5 = new MD5Hasher();
-        String chunkPrefix = md5.hashStringToString(fname);
+        //MD5Hasher md5 = new MD5Hasher();
+        HashInterface hash = new SHA256Hash();
+
+        String chunkPrefix = hash.hashStringToString(fname);
 
         int dictionarySize = 1 << 21;
         LZMAEncoder encLZ = new LZMAEncoder(dictionarySize);
