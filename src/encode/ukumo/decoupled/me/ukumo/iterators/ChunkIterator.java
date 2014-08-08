@@ -11,6 +11,11 @@ import java.io.DataInputStream;
  */
 public interface ChunkIterator {
 
+    /**
+     * Returns the next chunk in the sequence as a DataInputStream
+     * @param params nextChunk should fill out the params object with information about the returned chunk
+     * @return
+     */
     public DataInputStream nextChunk(ChunkParams params);
 
 }

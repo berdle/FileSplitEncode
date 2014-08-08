@@ -24,7 +24,6 @@ public class SHA256Hash implements HashInterface {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        System.out.println("sha 256 enabled!");
         hexLen = 64;
     }
 
@@ -66,8 +65,7 @@ public class SHA256Hash implements HashInterface {
     public String hashByteArrayToString(byte[] source) {
         byte[] b = hashByteArrayToBytes(source);
         String out = Hex.toHexString(b);
-        BigInteger bi = new BigInteger(1, b);
-        System.out.println("Returning hash: " + out);
+        //padString(hexLen, out);
         return out;
     }
 

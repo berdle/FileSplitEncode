@@ -9,33 +9,53 @@ import encode.ukumo.decoupled.me.ukumo.handlers.EncodedHandler;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Mr_Appleby
  * Date: 15/07/14
  * Time: 2:28 PM
- * To change this template use File | Settings | File Templates.
  */
 public class Splitter {
 
     private long bytesPerChunk = 1000000;
     private int readBuffer = 1024;
 
+    /**
+     * Creates a default splitter with a chunk size of 1MB
+     */
     public Splitter()
     {
 
     }
 
+    /**
+     * Creates a splitter with the specified chunk size
+     * @param chunkSize Long representing byte size of chunks (before compression/encryption)
+     */
     public Splitter(long chunkSize)
     {
         // max size of chunk before compression
         bytesPerChunk = chunkSize;
     }
 
+    /**
+     * Creates a splitter with specified max chunk size, and read buffer size
+     * @param chunkSize chunk size in bytes
+     * @param bufferSize read buffer size in bytes
+     */
     public Splitter(long chunkSize, int bufferSize) {
         bytesPerChunk = chunkSize;
         readBuffer = bufferSize;
     }
 
+    /**
+     * Splits a file into chunks which are then compressed and encrypted before being passed to a handler to be
+     * written to disc or uploaded, for example.
+     * @param fileIn Filepath of the file to split
+     * @param chunkPrefix Prefix to append to all chunk names (eg. hash of filename)
+     * @param encoder Compression Encoder implemented LZMAEncoder interface
+     * @param handler Handler implementing EncodedHandler, deal with finished chunks here.
+     * @param encrypt Object implementing EncryptionHandler interface
+     * @throws EncodeException
+     */
     public void split(String fileIn, String chunkPrefix, LZMAEncoder encoder, EncodedHandler handler, EncryptionHandler encrypt) throws EncodeException {
 
         if (encoder == null || handler == null || encrypt == null) {

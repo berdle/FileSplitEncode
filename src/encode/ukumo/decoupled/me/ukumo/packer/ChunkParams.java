@@ -45,6 +45,10 @@ public class ChunkParams {
         return totalChunks;
     }
 
+    /**
+     * Was the chunk iterator able to pass back a valid chunk?
+     * @return true/false
+     */
     public boolean isValidChunk() {
         return validChunk;
     }

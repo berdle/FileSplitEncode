@@ -18,6 +18,15 @@ public class Joiner {
 
     public Joiner(){}
 
+    /**
+     * rebuild decodes chunks selected from the iterator and calls the decode handler on each chunk.
+     *
+     * @param iterator A ChunkIterator object that supplies data to the method.
+     * @param dec A LZMA decoder
+     * @param handler Object implementing the DecodedHandler interface, to handle decoded chunks
+     * @param crypt Object implementing the EncryptionHandler interface
+     * @throws DecodeException
+     */
     public void rebuild(ChunkIterator iterator, LZMADecoder dec, DecodedHandler handler, EncryptionHandler crypt) throws DecodeException {
         // look for chunks starting with hash-chunkId.uko
 
@@ -47,7 +56,16 @@ public class Joiner {
         }
     }
 
-    public byte[] expandChunk(DataInputStream dis, LZMADecoder dec, EncryptionHandler crypt) throws IOException, DecodeException {
+    /**
+     *
+     * @param dis Chunk as a data input stream
+     * @param dec Reference to the decoder
+     * @param crypt Reference to the decrypter
+     * @return decrypted & decompressed chunk as byte[]
+     * @throws IOException
+     * @throws DecodeException
+     */
+    private byte[] expandChunk(DataInputStream dis, LZMADecoder dec, EncryptionHandler crypt) throws IOException, DecodeException {
         int buff = 1024;
         byte[] b;
         int r;

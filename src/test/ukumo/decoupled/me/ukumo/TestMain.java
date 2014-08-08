@@ -50,8 +50,8 @@ public class TestMain {
 
         //EncryptionHandler crypt = new PassthroughEncryptionHandler();
 
-        EncryptionHandler crypt = new AESEncryptionHandler("a sample key");
-
+        EncryptionHandler crypt = new AESEncryptionHandler("NONE");
+        //EncryptionHandler decrypt = new AESEncryptionHandler("an incorrect key");
 
         String path = "";
 
