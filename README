@@ -3,8 +3,13 @@ pass a handler to upload them, or save to disk, or what have you.
 
 Provides the facility to decrypt, decompress, and rejoin those chunks back into the original file.
 
+Version 1.0
+
+8-08-14:
+    v1.0: Feature-complete. Javadocs in process. See test/ukumo/decoupled/me/ukumo/TestMain.java for usage example.
+
 25-07-14:
     v.12: Added ChunkIterator to define how chunks are found and presented to the Joiner.
 
 25-07-14
-    v0.1: split->compress and decompress->join implemented. hooks provded for encryption interfaces.
+    v0.1: split->compress and decompress->join implemented. hooks provided for encryption interfaces.

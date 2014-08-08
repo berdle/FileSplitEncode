@@ -3,6 +3,7 @@ package test.ukumo.decoupled.me.ukumo;
 import encode.ukumo.decoupled.me.ukumo.compression.LZMADecoder;
 import encode.ukumo.decoupled.me.ukumo.encryption.AESEncryptionHandler;
 import encode.ukumo.decoupled.me.ukumo.encryption.EncryptionHandler;
+import encode.ukumo.decoupled.me.ukumo.encryption.PassthroughEncryptionHandler;
 import encode.ukumo.decoupled.me.ukumo.exceptions.DecodeException;
 import encode.ukumo.decoupled.me.ukumo.handlers.DecodedHandler;
 import encode.ukumo.decoupled.me.ukumo.handlers.SampleDecodedHandler;
@@ -24,9 +25,12 @@ public class TestDecoder {
         String fname;
         String key = "a sample key";
 
-        String prefix = "11aeb2b32c7ea889745e3a61923cfe19787f8b2c45b08f69aa6ada3444b31a97";
+        // hardcoded filename. this is just a rough testbed for examining files which may have problems.
+        // but may be treated as usage example of decoding.
+        String prefix = "de90e9a5d7e8ed900cfdfe81c4da7d3cad3557b821e0c06bb0ca8239783b7af1";
 
-        EncryptionHandler eh = new AESEncryptionHandler(key);
+        //EncryptionHandler eh = new AESEncryptionHandler(key);
+        EncryptionHandler eh = new PassthroughEncryptionHandler();
         ChunkIterator chit = new FileChunkIterator("", prefix);
         DecodedHandler dech = new SampleDecodedHandler("decode_output");
         LZMADecoder lzdec = new LZMADecoder();
